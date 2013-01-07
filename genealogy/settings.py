@@ -13,7 +13,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/var/chroot/home/content/42/9623542/html/genealogy/genealogy.sqlite3.db',                      # Or path to database file if using sqlite3.
+        'NAME': '/Users/haojianjin/Documents/Github/genealogyinfovis/genealogy.sqlite3.db',                      # Or path to database file if using sqlite3.
         'USER': 'lq2lq',                      # Not used with sqlite3.
         'PASSWORD': '123',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
