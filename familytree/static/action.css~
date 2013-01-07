@@ -1,0 +1,196 @@
+.selects_img {
+    position: absolute;
+    top: -3px;
+}
+option {
+    border-bottom: 1px solid #ECECEC;
+    font-size: 17px;
+    height: 30px;
+}
+#selects_div {
+    background: url("/static/element/search/middle.png") repeat scroll 0 0 transparent;
+    height: 42px;
+    overflow: hidden;
+    position: absolute;
+    right: 179px;
+    top: -3px;
+    width: 109px;
+}
+#selects_div p {
+    position: relative;
+    top: 11px;
+}
+#selects {
+    background: none repeat scroll 0 0 transparent;
+    cursor: pointer;
+    font-size: 17px;
+    height: 32px;
+    opacity: 0;
+    position: absolute;
+    right: 153px;
+    top: 2px;
+    width: 139px;
+    z-index: 100;
+}
+#alert_info {
+    background-image: url("/static/element/alert/mid.png");
+    font-size: 18px;
+    height: 55px;
+    text-align: center;
+    width: 158px;
+}
+#alert_info p {
+    margin-top: 11px;
+}
+* {
+    font-family: Arial;
+    margin: 0;
+}
+@font-face {
+    font-family: "AxureHandwritingRegular";
+    font-style: normal;
+    font-weight: normal;
+    src: url("/static/font/axurehandwriting-webfont.eot?#iefix") format("embedded-opentype"), url("/static/font/axurehandwriting-webfont.woff") format("woff"), url("/static/font/axurehandwriting-webfont.ttf") format("truetype"), url("/static/font/axurehandwriting-webfont.svg#AxureHandwritingRegular") format("svg");
+}
+#mycanvas, #node_canvas, #node_info {
+    position: absolute;
+}
+body {
+    background-image: url("/static/element/bg.png");
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+}
+.tree_head {
+    border: medium solid;
+    height: 100px;
+    width: 100px;
+}
+.data {
+    border: medium solid;
+    position: relative;
+}
+#title {
+    bottom: 5px;
+    margin: 30px;
+    position: absolute;
+    right: 5px;
+}
+#changemodel {
+    position: absolute;
+    z-index: 1;
+}
+#search_body {
+    background-image: url("/static/element/search.png");
+    height: 35px;
+    margin-right: 20px;
+    margin-top: 10px;
+    position: absolute;
+    right: 8px;
+    top: 4px;
+    width: 253px;
+    z-index: 1;
+}
+#search_button {
+    background-color: transparent;
+    background-image: url("/static/element/search/1.png");
+    border: 0 none;
+    cursor: pointer;
+    float: right;
+    height: 36px;
+    position: absolute;
+    right: -100px;
+    top: 1px;
+    width: 87px;
+}
+#search_input {
+    height: 30px;
+    left: 106px;
+    position: relative;
+    top: 4px;
+    width: 110px;
+}
+#alert {
+    height: 50px;
+    left: 35%;
+    margin: 0 auto;
+    position: absolute;
+    top: -56px;
+    width: 200px;
+    z-index: 3;
+}
+#mask {
+    background-color: black;
+    height: 100%;
+    opacity: 0.1;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+}
+#normal_button {
+    background-image: url("/static/element/TREE.png");
+    bottom: 30px;
+    cursor: pointer;
+    height: 91px;
+    position: absolute;
+    right: 115px;
+    width: 91px;
+    z-index: 1;
+}
+#tree_button {
+    background-image: url("/static/element/TREE.png");
+    bottom: 30px;
+    cursor: pointer;
+    height: 91px;
+    position: absolute;
+    right: 220px;
+    width: 91px;
+    z-index: 1;
+}
+#about_button {
+    background-image: url("/static/element/TREE.png");
+    bottom: 30px;
+    cursor: pointer;
+    height: 91px;
+    position: absolute;
+    right: 10px;
+    width: 91px;
+    z-index: 1;
+}
+#about_button p {
+    font-size: 18px;
+    position: relative;
+    text-align: center;
+    top: 32px;
+}
+#normal_button p {
+    font-size: 18px;
+    position: relative;
+    text-align: center;
+    top: 32px;
+}
+#tree_button p {
+    font-size: 18px;
+    position: relative;
+    text-align: center;
+    top: 32px;
+}
+#page_foot {
+    bottom: 0;
+    opacity: 0.5;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+#alert_info {
+}
+#search_icon {
+    background: red;
+    width: 35px;
+    height: 31px;
+    position: absolute;
+    right: 4px;
+    top: 3px;
+    opacity: 0;
+    cursor: pointer;
+}

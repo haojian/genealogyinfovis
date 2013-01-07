@@ -1,0 +1,151 @@
+.team_people img {
+    margin-bottom: 15px;
+}
+.team_name {
+    float: left;
+    font-size: 25px;
+    margin-top: 35px;
+    width: 120px;
+}
+body {
+    background-image: url("/static/element/bg.png");
+    overflow-x: hidden;
+    width: 100%;
+}
+.team img {
+    margin-left: 12px;
+    margin-right: 12px;
+}
+.team {
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+#search_input {
+    border: 0 none;
+    height: 26px;
+    left: 33px;
+    position: relative;
+    top: 3px;
+    width: 170px;
+}
+#search_button {
+    background-color: transparent;
+    background-image: url("/static/element/button.png");
+    border: 0 none;
+    float: right;
+    height: 34px;
+    position: relative;
+    top: 1px;
+    width: 83px;
+}
+@font-face {
+    font-family: "AxureHandwritingRegular";
+    font-style: normal;
+    font-weight: normal;
+    src: url("/static/font/axurehandwriting-webfont.eot?#iefix") format("embedded-opentype"), url("/static/font/axurehandwriting-webfont.woff") format("woff"), url("/static/font/axurehandwriting-webfont.ttf") format("truetype"), url("/static/font/axurehandwriting-webfont.svg#AxureHandwritingRegular") format("svg");
+}
+div {
+}
+#title {
+    height: 100px;
+    margin: 0 auto 40px;
+    width: 237px;
+}
+#time_line {
+    height: 100px;
+    position: relative;
+    width: 100%;
+    top: 40px;
+}
+#show_member {
+    border: 0 none;
+    height: 300px;
+    margin: 0 auto;
+    width: 1000px;
+}
+.member_img {
+    height: 100px;
+    width: 100px;
+}
+.grade {
+    cursor: pointer;
+    float: left;
+    height: 50px;
+    width: 200px;
+}
+#time_line_bg {
+    background-color: #DADADA;
+    height: 8px;
+}
+#time_line_body {
+    height: 51px;
+    position: relative;
+    top: -19px;
+}
+.circle {
+}
+* {
+    font-family: AxureHandwritingRegular;
+    margin: 0;
+}
+.circle_div {
+    height: 70px;
+    margin: 0 auto;
+    position: relative;
+    top: -21px;
+    width: 75px;
+}
+#info {
+    display: none;
+    height: 200px;
+    position: absolute;
+    width: 100px;
+}
+#info_body {
+    background-image: url("/static/element/mid.png");
+    padding-left: 20px;
+    width: 209px;
+    font-size: 14px;
+}
+.info_name {
+    font-size: 20px;
+    position: relative;
+}
+.info_team {
+    height: 3px;
+    left: 25px;
+    position: relative;
+    width: 180px;
+}
+.circle_div p {
+    position: relative;
+    text-align: center;
+    top: -52px;
+}
+#search_body {
+    background-image: url("/static/element/search.png");
+    height: 36px;
+    position: absolute;
+    right: 7px;
+    top: 4px;
+    width: 292px;
+    z-index: 1;
+}
+body {
+    background-image: url("/static/element/bg.png");
+    overflow-x: hidden;
+    width: 100%;
+}
+#info_body hr {
+    background-color: black;
+    border: 0 none;
+    height: 5px;
+    width: 180px;
+}
+.member {
+    float: left;
+    margin: 20px;
+}
+hr {
+    color: OldLace;
+}
