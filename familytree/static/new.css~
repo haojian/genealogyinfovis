@@ -1,24 +1,7 @@
-.team_people img {
-    margin-bottom: 15px;
-}
-.team_name {
-    float: left;
-    font-size: 25px;
-    margin-top: 35px;
-    width: 120px;
-}
 body {
     background-image: url("/static/element/bg.png");
     overflow-x: hidden;
     width: 100%;
-}
-.team img {
-    margin-left: 12px;
-    margin-right: 12px;
-}
-.team {
-    margin-bottom: 15px;
-    margin-top: 15px;
 }
 #search_input {
     border: 0 none;
@@ -54,15 +37,14 @@ div {
 #time_line {
     height: 100px;
     position: relative;
-    width: 100%;
+    width: 3000px;
 }
 #show_member {
     border: 0 none;
     height: 300px;
-    margin: 0 auto;
-    width: 1000px;
 }
 .member_img {
+    float: left;
     height: 100px;
     width: 100px;
 }
@@ -102,9 +84,9 @@ div {
 }
 #info_body {
     background-image: url("/static/element/mid.png");
-    padding-left: 20px;
-    width: 209px;
-    font-size: 14px;
+}
+#info_body p {
+    margin-left: 25px;
 }
 .info_name {
     font-size: 20px;
@@ -129,15 +111,4 @@ div {
     top: 4px;
     width: 292px;
     z-index: 1;
-}
-body {
-    background-image: url("/static/element/bg.png");
-    overflow-x: hidden;
-    width: 100%;
-}
-#info_body hr {
-    background-color: black;
-    border: 0 none;
-    height: 5px;
-    width: 180px;
 }

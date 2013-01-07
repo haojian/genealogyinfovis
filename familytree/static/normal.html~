@@ -8,7 +8,7 @@
     <body>
       <div id="head">
 	<div id="search_body">
-	  <form method="" id="search_form" action="" onsubmit="return search()">
+	  <form method="" id="search_form" action="">
 	    <input id="search_input" type="" name="" value="" />
 	    <button id="search_button"></button>
 	  </form>
@@ -27,7 +27,7 @@
 	  <div id="{{ forloop.counter0 }}_grade" class="grade">
 	    <div class="circle_div">
 	      <img id="{{ forloop.counter0 }}_head_img" src="/static/element/simple/circle2.png" class="circle" alt="" />
-	      <p id="year_{{ forloop.counter0 }}">{{ g }}</p>
+	      <p>{{ g }}</p>
 	    </div>
 	  </div>
 	  {% endfor %}
@@ -35,14 +35,6 @@
 	</div>
       </div>
       <div id="show_member">
-      </div>
-      <div id="normal_button" class="" style="display:none">
-	<p><b>Normal</b></p>
-      </div>
-      <div id="tree_button" class="" style="display:none">
-	<p style="font-size: 18px;">
-	  Tree
-	</p>
       </div>
       <div id="info" class="">
 	<img src="/static/element/header.png" class="" alt="" />

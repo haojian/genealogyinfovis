@@ -1,174 +1,262 @@
-function node_cube(){
+var now_pos=0;
+var bef_pos=0;
+var xmlhttp;
+var now_info;
+//储存信息
+var info_array=new Array();
+//储存信息位置
+var pos_to_info_array=new Array();
+function member_info(data){
     var that = this;
-    this.team = new Array();
-    this.team_name = new Array();
-
-    this.xmlhttp;
-    if (window.XMLHttpRequest)
-    {// code for IE7+, Firefox, Chrome, Opera, Safari
-	this.xmlhttp=new XMLHttpRequest();
-    }
-    else
-    {// code for IE6, IE5
-	this.xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-    }
-
-    this.load_data = function(data){
-	var name = data+"_team";
-	$(".member_div").css({"display":"none"});;
-	for(count in that.team_name){
-	    if(that.team_name[count] == name){
-		$("#"+name).css({"display":"block"});
-		return 0;
-	    }
-	}
-	that.xmlhttp.onreadystatechange=function(){
-	    if (that.xmlhttp.readyState==4 && that.xmlhttp.status==200){
-		var data = that.xmlhttp.responseText;
-		haha = JSON.parse(data);
-		that.add_team(haha);
-	    }
-	}
-	that.xmlhttp.open("GET","/grade?mydata="+data,true);
-	that.xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-	that.xmlhttp.send();
-	return false; 
-    };
-    this.add_team = function(data){
-	var name = data[0].fields.highest_degree_year+"_team";
-	for(count in that.team_name){
-	    if(that.team_name[count] == name){
-		return 0;
-	    }
-	}
-	that.team_name.push(name);
-	that.team.push(new node_team());
-	$("#show_member").append("<div id='"+name+"' class='member_div'></div>");
-	that.team[that.team.length-1].add_info(name,data);
-    };
-}
-function node_team(){
-    var that = this;
-    this.node_arr = new Array();
-    this.add_info = function(name,data){
-	var count = 0;
-	var len = data.length;
-	for(;count<len;count++){
-	    that.node_arr.push(new node_info());
-	    that.node_arr[that.node_arr.length-1].init(data[count],name);
-	}
-    };
-}
-function node_info(){
-    var that = this;
-    this.pk;
-    this.name_first;
-    this.name_middle;
-    this.name_last;
+    this.name;
+    this.team;
+    this.grade;
+    this.tel;
     this.email;
-    this.homepage;
-    this.s_id;
-    this.D_name;
-    this.D_insti;
-    this.D_year;
-    this.D_depart;
-    this.title;
-    this.organization;
-    this.other_info;
-    this.imgurl;
-    this.img;
-    this.keyword;
-    this.mentor;
-    this.mentee;
-    this.coll;
-    
-    this.init = function(data,name){
-	var fields = data.fields;
-	that.pk = data.pk;
-	that.name_first = fields.name_first;
-	that.name_middle = fields.name_middle;
-	that.name_last = fields.name_last;
-	that.s_id = fields.scitribe_id;
-	that.D_name = fields.highest_degree_name;
-	that.D_year = fields.highest_degree_year;
-	that.D_insti = fields.highest_degree_insti;
-	that.D_depart = fields.highest_degree_depart;
-	that.keyword = fields.keywords;
-	that.email=data.fields.email_addr;
-	that.organization = fields.organization_info;
-	that.imgurl = fields.imgurl;//fields.imgurl;
-	that.homepage = fields.homepage;
-	that.mentor = fields.mentor;
-	that.mentee = fields.mentee;
-	that.coll = fields.collaborators;
-	that.other_info = fields.other_info;
-	that.title = fields.cur_title;
-	var member_name;
-	if(test_info(that.name_middle)!="N/A"){
-		member_name = that.name_first+" "+that.name_middle+" "+that.name_last;
+    this.otherinfo;
+    this.init = function(data){
+	that.name = data.name;
+	that.team = data.team;
+	that.grade = data.grade;
+	that.tel = data.tel;
+	that.email = data.email;
+	that.otherinfo = data.otherinfo;
+    };
+    this.init(data);
+    this.show_info=function(){
+	if(now_info==that)return 0;
+	$("#info p").remove();
+	$("#info .info_team").remove();
+	$("#info").css({"display":"block"}).css({"width":"0px"}).css({"height":"0px"}).animate({width:"229px",height:"200px"});
+	$("#info_body").append("<p class='info_name'>"+that.name+"</p>");
+	var color="#000000";
+	switch(that.team){
+	case "pm":color="#f3e2aa";break;
+	case "design":color="#ffceba";break;
+	case "it":color="#a7dec9";break;
+	case "sde":color="#d4e6e8";break;
+	case "alg":color="#faf0d7";break;
+	case "web":color="#d4e6e8";break;
+	case "嵌入式":color="#f3e2aa";break;
+	}
+	$("#info_body").append("<div class='info_team' class='"+that.team+"_color' style='background-color:"+color+";'></div>");
+	if(that.team!="0")$("#info_body").append("<p>"+that.team+"</p>");
+	if(that.grade!="0")$("#info_body").append("<p>"+that.grade+"</p>");
+	if(that.tel!="0")$("#info_body").append("<p>"+that.tel+"</p>");
+	if(that.email!="0")$("#info_body").append("<p>"+that.email+"</p>");
+	now_info=that;
+    };
+}
+function member_info_cube(member){
+    var that = this;
+    this.member = member;
+    this.info_cube = new Array();
+    this.add_info=function(data){
+	that.info_cube.push(new member_info(data));
+    };
+    this.show_info=function(pos){
+	that.info_cube[pos].show_info();
+    }
+}
+loadXMLDoc=function(grade){
+    xmlhttp=null;
+    if(window.XMLHttpRequest){
+	// code for Firefox, Opera, IE7, etc.
+	xmlhttp=new XMLHttpRequest();
+    }
+    else if(window.ActiveXObject){
+	// code for IE6, IE6
+	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if(xmlhttp!=null){
+	xmlhttp.onreadystatechange=state_Change;
+	xmlhttp.open("GET","/grade?mydata="+grade,true);
+	xmlhttp.send(null);
+    }
+    else{
+	alert("Your browser does not support XMLHTTP.");
+    }
+};
+state_Change=function(){
+    if(xmlhttp.readyState==4){
+	//4 = "loaded"
+	if(xmlhttp.status==200){
+	    var haha;
+	    if (typeof (JSON) == 'undefined'){
+		haha = eval(xmlhttp.responseText);
 	    }
-	    else member_name = that.name_first+" "+that.name_last;
-	if(that.imgurl == ""){
-	    $("#"+name).append("<div class='member'><img id='member_"+that.pk+"' class='member-photo' src='/static/element/head/default.png' /><p>"+member_name+"</p></div>");
+	    else{
+		//200 = "OK"
+		haha = JSON.parse(xmlhttp.responseText);
+	    }
+	    //alert(xmlhttp.responseText);
+	    show_member(haha);
 	}
 	else{
-	    $("#"+name).append("<div class='member'><img id='member_"+that.pk+"' class='member-photo' src='"+that.imgurl+"' onerror='this.src=\"/static/element/head/default.png\"' /><p>"+member_name+"</p></div>");
+	    alert("Problem retrieving data:" + xmlhttp.statusText);
 	}
-	var img = document.getElementById("member_"+that.pk);
-	img.addEventListener("mousemove",that.show_info,false);
-    };
-    this.show_info = function(e){
-	var top = document.documentElement.scrollTop;
-	$("#info").css({"display":"block","left":(e.clientX+10),"top":(e.clientY+top+10)});
-	if(info_id != that.pk){
-	    $("#info_body").html("");
-	    info_id = that.pk;
-	    
-	    var name;
-	    if(test_info(that.name_middle)!="N/A"){
-		name = that.name_first+" "+that.name_middle+" "+that.name_last;
-	    }
-	    else name = that.name_first+" "+that.name_last;
-	    
-	    $("#info_body").append("<div class='info_name'>"+name+"<div/><hr />");
-	    var info_content = new Array(that.email,that.homepage,that.s_id,that.D_name,that.D_insti,that.D_year,that.D_depart,that.title,that.organization,that.other_info,that.keyword,that.mentor,that.mentee,that.coll);
-	    var info_name = new Array("Email","Homepage","S_id","PhD","Institution","Year","Subject","Position","Organization","Miscellaneous","Description","Mentor","Mentee","Collaborators");
-	    var count = 0;
-	    var len = info_content.length;
-	    for(;count<len;count++){
-		if(test_info(info_content[count])!="N/A"){
-		    var str = info_name[count]+": "+test_info(info_content[count]);
-		    var str_len = Math.ceil(str.length/20);
-		    for(var j = 0;j<str_len;j++){
-			$("#info_body").append(str.substring(j*20,j*20+20));
-		    }
-		    $("#info_body").append("<br/>");
-		}
-	    }
-	}
-    };
-}
-function test_info(s){
-    if(s==""||!s){
-	return "N/A";
     }
-    return s;
+};
+function show_info(pos,event,num){
+    $("#info").css({"left":event.clientX+15}).css({"top":event.pageY+15});
+    if(0&&$("#info").css("display")=="none"){
+	//alert("");
+	$("#info").css({"display":"block"}).css({"width":"0px"}).css({"height":"0px"}).animate({width:"100px",height:"200px"});
+    }
+    var count = 0 ;
+    var len = info_array.length;
+    for(;count<len;count++){
+	if(info_array[count].member == num){
+	    info_array[count].show_info(pos);
+	    break;
+	}
+    }
 }
-var cube = new node_cube();
-var info_id = -1;
+function hide_info(){
+    $("#info").css({"display":"none"});
+    now_info = -1;
+}
+function show_member(data){
+    $("#show_member").append("<div id='"+now_pos+"_member'></div>");
+    var len = data.length;
+    var count = 0;
+    var i = info_array.length;
+    info_array.push(new member_info_cube(now_pos));
+    var team = data[count].fields.team;
+    pos_to_info_array.push(data[count].fields.grade);
+    var team_num = 0;
+    $("#"+now_pos+"_member").append("<div id='"+now_pos+team+"' class='team' ><div class='team_name'>"+team+"</div><div class='team_people'></div></div>");
+    for(;count<len;count++){
+	var the_data = data[count].fields;
+	//alert(the_data.name);
+	if(team!=the_data.team){
+	    team = the_data.team;
+	    team_num = 0;
+	    $("#"+now_pos+"_member").append("<div id='"+now_pos+team+"' class='team' ><div class='team_name'>"+team+"</div><div class='team_people'></div></div>");
+	}
+	info_array[i].add_info(the_data);
+	team_num++;
+	$("#"+now_pos+team+" .team_name").css({"height":10+Math.round(team_num/7)*100+"px"});
+	$("#"+now_pos+team).css({"height":160+Math.round(team_num/7)*100+"px"});
+	$("#"+now_pos+team+" .team_people").append("<div class='member_div'><img class='member_img' src='/static/element/head/"+the_data.name+".png' onerror='this.src=\"/static/element/head/uniquestudio.png\"' onmousemove='show_info("+count+",event,"+now_pos+")' onmouseout='hide_info()' /><p>"+the_data.name+"</p></div>");
+    }
+}
 $(document).ready(function(){
-    var normal = "/static/element/simple/circle2.png";
-    var click = "/static/element/simple/circle.png";
+    $("#search_input").css("border-width","0px").css("border-color","red").css("border-style","solid");
+    $("#search_input").focus(function(){
+	$("#search_input").css("border-width","2px");
+    });
+    $("#search_input").blur(function(){
+	$("#search_input").css("border-width","0px");
+    });
+    var move_distance = (now_pos-0.5)*200+document.documentElement.clientWidth/2;
+    $("#0_head_img").attr("src","/static/element/simple/circle.png");
+    $("#time_line_body").animate({left:""+move_distance+"px"});
     $(".grade").click(function(){
-	var num = parseInt($(this).attr("id"));
-	$("#time_line_body").animate({"left":($(window).width()/2-num*200-100)});
-	$(".circle").attr("src",normal);
-	$("#"+num+"_head_img").attr("src",click);
-	var year = $("#year_"+num).html();
-	cube.load_data(year);
+	var text = parseInt($(this).first().text());
+	var the_pos = parseInt(this.id);
+	now_pos = the_pos;
+	$("#"+bef_pos+"_head_img").attr("src","/static/element/simple/circle2.png");
+	var move_distance = (-the_pos-0.5)*200+$(window).width()/2;//;document.documentElement.clientWidth/2;
+	$("#"+the_pos+"_head_img").attr("src","/static/element/simple/circle.png");
+	$("#time_line_body").animate({left:""+move_distance+"px"});
+	if(the_pos == bef_pos){
+	}
+	else if(document.getElementById(the_pos+"_member")){
+	    $("#"+the_pos+"_member").css({"display":"block"});
+	    $("#"+bef_pos+"_member").css({"display":"none"});
+	}
+	else{
+	    $("#"+bef_pos+"_member").css({"display":"none"});
+	    loadXMLDoc(text);
+	}
+	bef_pos = the_pos;
     });
-    $("#0_grade").click();
-    $(".member-photo").live("mouseleave",function(){
-	$("#info").css({"display":"none"});
-    });
+    loadXMLDoc(2004);
 });
+function search(){
+    var value = document.getElementById("search_input").value;
+    var len = info_array.length;
+    var count = 0;
+    for(;count<len;count++){
+	var info_cube = info_array[count].info_cube;
+	var len2 = info_cube.length;
+	for(var i=0;i<len2;i++){
+	    if(info_cube[i].name == value){
+		for(var j=0;j<pos_to_info_array.length;j++){
+		    if(pos_to_info_array[j] == info_cube[i].grade){
+			//alert(j);
+			break;
+		    }
+		}
+		var the_pos = info_cube[i].grade-2004;
+		now_pos = the_pos;
+		$("#"+bef_pos+"_head_img").attr("src","/static/element/simple/circle2.png");
+		var move_distance = (-the_pos-0.5)*200+$(window).width()/2;//;document.documentElement.clientWidth/2;
+		$("#"+the_pos+"_head_img").attr("src","/static/element/simple/circle.png");
+		$("#time_line_body").animate({left:""+move_distance+"px"});
+		if(the_pos == bef_pos){
+		}
+		else if(document.getElementById(the_pos+"_member")){
+		    $("#"+the_pos+"_member").css({"display":"block"});
+		    $("#"+bef_pos+"_member").css({"display":"none"});
+		}
+		else{
+		    $("#"+bef_pos+"_member").css({"display":"none"});
+		    loadXMLDoc(text);
+		}
+		bef_pos = the_pos;
+		return false;
+	    }
+	}
+    }
+    search_loadXMLDoc(value);
+    return false;
+}
+var search_xmlhttp=null;
+search_loadXMLDoc=function(name){
+    if(window.XMLHttpRequest){
+	// code for Firefox, Opera, IE7, etc.
+	search_xmlhttp=new XMLHttpRequest();
+    }
+    else if(window.ActiveXObject){
+	// code for IE6, IE6
+	search_xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if(search_xmlhttp!=null){
+	search_xmlhttp.onreadystatechange=search_state_Change;
+	search_xmlhttp.open("GET","/normal_search?mydata="+name,true);
+	search_xmlhttp.send(null);
+    }
+    else{
+	alert("Your browser does not support XMLHTTP.");
+    }
+};
+search_state_Change=function(){
+    if(search_xmlhttp.readyState==4){
+	//4 = "loaded"
+	if(search_xmlhttp.status==200){
+	    var grade = search_xmlhttp.responseText;
+	    var the_pos = grade-2004;
+	    now_pos = the_pos;
+	    $("#"+bef_pos+"_head_img").attr("src","/static/element/simple/circle2.png");
+	    var move_distance = (-the_pos-0.5)*200+$(window).width()/2;//;document.documentElement.clientWidth/2;
+	    $("#"+the_pos+"_head_img").attr("src","/static/element/simple/circle.png");
+	    $("#time_line_body").animate({left:""+move_distance+"px"});
+	    if(the_pos == bef_pos){
+	    }
+	    else if(document.getElementById(the_pos+"_member")){
+		$("#"+the_pos+"_member").css({"display":"block"});
+		$("#"+bef_pos+"_member").css({"display":"none"});
+	    }
+	    else{
+		$("#"+bef_pos+"_member").css({"display":"none"});
+		loadXMLDoc(grade);
+	    }
+	    bef_pos = the_pos;
+	}
+	else{
+	    alert("Problem retrieving data:" + search_xmlhttp.statusText);
+	}
+    }
+};

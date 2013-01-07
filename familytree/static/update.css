@@ -131,7 +131,7 @@
     left: 10px;
     margin: 0 auto;
     position: relative;
-    top: -20px;
+    top: 40px;
     width: 332px;
     z-index: 100;
 }
@@ -212,11 +212,4 @@
     margin-right: 5px;
     margin-top: 10px;
     width: 86px;
-}
-#up {
-    font-size: 10px;
-    left: 11px;
-    position: absolute;
-    text-align: center;
-    top: 14px;
 }

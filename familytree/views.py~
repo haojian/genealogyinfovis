@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response
 #use to make json
 from django.core import serializers
 from familytree.models import *
-#import simplejson
+import simplejson
 
 #use local() return all agruments
 def index(request):
@@ -421,9 +421,9 @@ def con(request):
     c_node.mentor = f_id
     c_node.save()
 
-    if f_node.mentee == "":
-        f_node.mentee = c_id
+    if f_node.mentor == "":
+        f_node.mentor = c_id
     else:
-        f_node.mentee+=","+c_id
+        f_node.mentor+=","+c_id
     f_node.save();
     return HttpResponse("success")

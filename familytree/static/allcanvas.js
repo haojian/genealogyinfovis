@@ -19,11 +19,11 @@ function Onload_tree(){
 var my_alert = 0;
 function alert_open(message){
     if(my_alert)return 0;
-    var width = message.length*6+120
+    var width = message.length*12+100
     var alert_info_width = width-32;
     $("#alert_info p").remove()
     $("#alert_info").css({"width":alert_info_width+"px"}).append("<p>"+message+"</p>");
-    $("#alert").css({"width":width+"px"}).css({"left":($(document).width()-width)/2}).animate({"top":"0px"},"slow");
+    $("#alert").css({"width":width+"px"}).animate({"top":"0px"},"slow");
     my_alert = 1;
 }
 function alert_close(){
@@ -143,7 +143,6 @@ function ajax_add(){
     var f_id = family.selected_node.info.pk;
     var v = document.getElementsByName("add_it");
     var add_xmlhttp;
-    $("#addchild_exit").click();
     if (window.XMLHttpRequest)
     {// code for IE7+, Firefox, Chrome, Opera, Safari
 	add_xmlhttp=new XMLHttpRequest();
@@ -210,7 +209,7 @@ function Create_up_info(name_arr){
 	}
     }
 }
-var name_arr = new Array("First_Name","Middle_Name","Last_Name","Image_link","Websites","PhD","Institution","Year","Subject","Position","Description","Miscellaneous","Mentors","Mentees","Collaborators","Organization_info");
+var name_arr = new Array("First_Name","Middle_Name","Last_Name","Image_link","Websites","PhD","Institution","Year","Subject","Position","Description","Organization_info","Mentors","Mentees","Collaborators","Miscellaneous");
 function modify_exit(){
     $("#update_info_div").fadeOut(function(){
 	$(".check").remove();
@@ -298,7 +297,6 @@ $(document).ready(function(){
     });
     //
     $("#confirm_btn").click(function(){
-	alert_close();
 	ajax_update();
     });
     //addchild
@@ -321,7 +319,6 @@ $(document).ready(function(){
     //exit按钮
     $("#update_exit").click(function(){
 	$("#update_info_div").fadeOut(function(){
-	    alert_close();
 	    $(".check").remove();
 	    $(".up_list2").css({"display":"none"});
 	    $("#more_btn").css({"display":"block"});
@@ -329,7 +326,6 @@ $(document).ready(function(){
 	$("#mask").fadeOut();
     });
     $("#cancel_btn").click(function(){
-	alert_close();
 	$("#update_info_div").fadeOut(function(){
 	    $(".check").remove();
 	    $(".up_list2").css({"display":"none"});
@@ -364,7 +360,6 @@ $(document).ready(function(){
 	}
 	else{
 	    family.mode = 1;
-	    family.selected_node = 0;
 	    $("#modify_mode").css({"display":"none"});
 	    $("#modify-div").css({"display":"none"});
 	    $("#change_btn").animate({"left":"2px"},"fast");
@@ -664,7 +659,7 @@ function Tree_node_info(data,family){
     this.family=family;
     
     //user data
-    this.pk;
+    this.pk
     this.name_first;
     this.name_middle;
     this.name_last;
@@ -683,9 +678,6 @@ function Tree_node_info(data,family){
     this.keyword;
     this.mentor;
     this.mentee;
-    this.mentorname;
-    this.menteename;
-    this.sementorname;
     this.coll;
     
     this.canvas = document.getElementById("node_info");
@@ -708,9 +700,6 @@ function Tree_node_info(data,family){
 	that.homepage = fields.homepage;
 	that.mentor = fields.mentor;
 	that.mentee = fields.mentee;
-	that.mentorname = fields.mentorname;
-	that.menteename = fields.menteename;
-	that.sementorname = fields.sementorname;
 	that.coll = fields.collaborators;
 	that.other_info = fields.other_info;
 	that.title = fields.cur_title;
@@ -734,12 +723,37 @@ function Tree_node_info(data,family){
 	//write something
 	that.ctx.drawImage(document.getElementById("info_head"),0,0);
 	var info_mid = document.getElementById("info_mid");
-	that.ctx.fillStyle="#f3e2aa";
-		
-	that.ctx.drawImage(info_mid,0,23);
-	that.ctx.drawImage(info_mid,0,28);
-	that.ctx.drawImage(info_mid,0,33);
+	var start = 23;
+	var info_len=0;
 
+	if(is_info(that.email))info_len++;
+	if(that.email.length>26)info_len++;
+	if(is_info(that.homepage))info_len++;
+	if(is_info(that.s_id))info_len++;
+	if(is_info(that.D_name))info_len++;
+	if(is_info(that.D_insti))info_len++;
+	if(is_info(that.D_year))info_len++;
+	if(is_info(that.D_depart))info_len++;
+	if(is_info(that.title))info_len++;
+	if(is_info(that.organization))info_len++;
+	if(is_info(that.keyword))info_len++;
+	if(is_info(that.mentor))info_len++;
+	if(is_info(that.mentee))info_len++;
+	if(is_info(that.coll))info_len++;
+	var end=info_len*15+30;
+
+	for(var i = 23;i<end;i+=5){
+	    that.ctx.drawImage(info_mid,0,i);
+	}
+	that.ctx.drawImage(document.getElementById("info_footer"),0,i);
+	that.ctx.fillStyle="#f3e2aa";
+	for(var r_top=45;r_top<120;r_top+=15){
+	    break;
+	    that.ctx.beginPath();
+	    that.ctx.arc(17,r_top,5,0,Math.PI*2);
+	    that.ctx.closePath();
+	    that.ctx.fill();
+	}
 	that.ctx.fillStyle="#252525";
 	that.ctx.fillRect(24,30,180,4);
 	that.ctx.stroke();
@@ -747,13 +761,13 @@ function Tree_node_info(data,family){
 	var write_pos=50;
 	var write_height=15;
 	that.ctx.font = "20px AxureHandwritingRegular";
-
+	
 	var name;
-	if(test_info(that.name_middle)!="N/A"){
+	if(test_info(that.name_middle)!="none"){
 	    name = that.name_first+" "+that.name_middle+" "+that.name_last;
 	}
 	else name = that.name_first+" "+that.name_last;
-	
+
 	that.ctx.fillText(name,left_fix,30);
 	that.ctx.stroke();
 	that.ctx.font = "14px AxureHandwritingRegular";
@@ -761,36 +775,16 @@ function Tree_node_info(data,family){
 	    that.ctx.fillText(that.name,left_fix,write_pos);
 	    write_pos+=write_height;
 	}
-	var info_content = new Array(that.email,that.homepage,that.s_id,that.D_name,that.D_insti,that.D_year,that.D_depart,that.title,that.organization,that.other_info,that.keyword,that.mentorname,that.sementorname,that.menteename,that.coll);
-	var info_name = new Array("Email","Homepage","S_id","PhD","Institution","Year","Subject","Position","Organization","Miscellaneous","Description","Mentor","Secondary mentor","Mentee","Collaborators");
-	var count = 0;
-	var len = info_content.length;
-	var max_len = 25;
-	for(;count<len;count++){
-	    if(test_info(info_content[count])!="N/A"){
-		var str = info_name[count]+": "+test_info(info_content[count]);
-		var str_len = Math.ceil(str.length/max_len);
-		for(var j = 0;j<str_len;j++){
-		    that.ctx.drawImage(info_mid,0,write_pos-12);
-		    that.ctx.drawImage(info_mid,0,write_pos-7);
-		    that.ctx.drawImage(info_mid,0,write_pos-2);
-		    that.ctx.fillText(str.substring(j*max_len,j*max_len+max_len),left_fix,write_pos);
-		    write_pos+=write_height;
-		}
-	    }
-	}
-	that.ctx.drawImage(document.getElementById("info_footer"),0,write_pos-12);
-	/*
 	if(is_info(that.email)){
-	    if(that.email.length>16){
-		var s1 = that.email.substring(0,16);
-		var s2 = that.email.substring(16,that.email.length);
-		that.ctx.fillText("Email: "+s1,left_fix,write_pos);
+	    if(that.email.length>26){
+		var s1 = that.email.substring(0,26);
+		var s2 = that.email.substring(26,that.email.length);
+		that.ctx.fillText(s1,left_fix,write_pos);
 		that.ctx.fillText(s2,left_fix,write_pos+write_height);
 		write_pos+=write_height;
 	    }
 	    else{
-		that.ctx.fillText("Email: "+that.email,left_fix,write_pos);
+		that.ctx.fillText(that.email,left_fix,write_pos);
 		write_pos+=write_height;
 	    }
 	}
@@ -846,7 +840,6 @@ function Tree_node_info(data,family){
 	    that.ctx.fillText(that.coll,left_fix,write_pos);
 	    write_pos+=write_height;
 	}
-	*/
 	that.canvas.style.left = mouse_l+5;//e.clientX+5;
 	that.canvas.style.top = mouse_t+5;//e.clientY+5;
 	//that.canvas.style.opacity=1;
@@ -867,11 +860,11 @@ function Tree_node_info(data,family){
 	$("#"+name_arr[8]+"-input").attr("value",test_info(this.D_depart));
 	$("#"+name_arr[9]+"-input").attr("value",test_info(this.title));
 	$("#"+name_arr[10]+"-input").attr("value",test_info(this.keyword));
-	$("#"+name_arr[11]+"-input").attr("value",test_info(this.other_info));
+	$("#"+name_arr[11]+"-input").attr("value",test_info(this.organization));
 	$("#"+name_arr[12]+"-input").attr("value",test_info(this.mentor));
 	$("#"+name_arr[13]+"-input").attr("value",test_info(this.mentee));
 	$("#"+name_arr[14]+"-input").attr("value",test_info(this.coll));
-	$("#"+name_arr[15]+"-input").attr("value",test_info(this.organization));
+	$("#"+name_arr[15]+"-input").attr("value",test_info(this.other_info));
     };
     if(data=="search"){
 	that.pk = "";
@@ -899,7 +892,7 @@ function Tree_node_info(data,family){
 	that.D_year = "";
 	that.D_insti = "";
 	that.D_depart = "";
-	that.email = "email@163.comwwwwwww";
+	that.email = "email@163.com";
 	that.organization = "";
 	that.imgurl = 0;//fields.imgurl;
 	that.homepage = "";
@@ -1026,11 +1019,6 @@ function Family(id,left,top){
 		    setTimeout(alert_close,2500);
 		    return 0;
 		}
-		if(that.xmlhttp.responseText==""){
-		    alert_open("No mentee yet");
-		    setTimeout(alert_close,1500);
-		    return;
-		}
 		haha = JSON.parse(that.xmlhttp.responseText);
 		if(haha.length)that.create_node_canvas(haha);
 	    }
@@ -1065,14 +1053,7 @@ function Family(id,left,top){
 	if(that.connect_node == that.selected_node){
 	    alert_close();
 	    that.connect_node = 0;
-	    setTimeout(alert_open,700,"Error");
-	    setTimeout(alert_close,2200);
-	    return 0;
-	}
-	else if(that.connect_node.father == that.selected_node){
-	    alert_close();
-	    that.connect_node = 0;
-	    setTimeout(alert_open,700,"No change");
+	    setTimeout(alert_open,700,"error");
 	    setTimeout(alert_close,2200);
 	    return 0;
 	}
@@ -1360,6 +1341,7 @@ function Family(id,left,top){
 	}
 	var banner = document.getElementById("banner");
 	var fix1=8,fix2=8;
+	var ljt = document.getElementById("ljt");
 	var font_size = 24*fac;
 	//alert(font_size);
 	var font_fix_left = 15*fac;
@@ -1398,7 +1380,7 @@ function Family(id,left,top){
 	    that.node_ctx.drawImage(img,node.left,node.top,that.width,that.height);	   
 	    that.node_ctx.font = font_size+"px AxureHandwritingRegular";
 	    that.node_ctx.textAlign="center";
-	    if(test_info(node.info.name_middle)!="N/A"){
+	    if(test_info(node.info.name_middle)!="none"){
 		name = node.info.name_first+" "+node.info.name_middle+" "+node.info.name_last;
 	    }
 	    else name = node.info.name_first+" "+node.info.name_last;
@@ -2124,9 +2106,6 @@ function Auto_size(){
 }
 $(document).ready(function(event){    
     //selects
-    $("#up").click(function(){
-	alert_open("You can upload image on <a href='http://tinypic.com' target='_blank'>http://tinypic.com</a> and get the image link.");
-    });
     Auto_size();
     $(window).resize(function(){
 	Auto_size();
@@ -2169,24 +2148,16 @@ $(document).ready(function(event){
     $("#about_button").click(function(){
 	document.location.href="/familytree/about";
     });
-    var timeline_bool = 0;
     $("#normal_button").click(function(){
-	if(!timeline_bool){
 	alert_open("~loading~");
 	//window.location.href="/familytree/normal/";
 	document.getElementById("timeline-frame").src="/timeline";
 	document.getElementById("timeline-frame").onload = alert_close;
 	$("#timeline-frame").css({"display":"block"});
-	    timeline_bool = 1;
-	}
-	else{
-	    $("#timeline-frame").css({"display":"none"});
-	    timeline_bool = 0;
-	}
 	Auto_size();
     });
     $("#tree_button").click(function(){
-	alert_open("You are already on the Tree page");
+	alert_open("您已在 Tree 页面");
 	setTimeout(alert_close,2000);
     });
 });

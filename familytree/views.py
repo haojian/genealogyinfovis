@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response
 #use to make json
 from django.core import serializers
 from familytree.models import *
-#import simplejson,json
+#import simplejson
 
 #use local() return all agruments
 def index(request):
@@ -15,30 +15,6 @@ def index(request):
 def ft(request):
     #member = Member.objects.get(pk=1)
     return render_to_response('action.html')
-
-def setname(mj):
-    """
-    """
-    for m in mj:
-        namestr = ""
-        if m['fields']['mentee'] != "":
-            youngerlist = m['fields']['mentee'].split(',')
-            for younger in youngerlist:
-                member = Member.objects.get(pk = younger)
-                namestr = namestr + member.__unicode__() + ","
-        m['fields']['menteename'] = namestr
-        if m['fields']['mentor'] != "":
-            member = Member.objects.get(pk = m['fields']['mentor'])
-            m['fields']['mentorname'] = member.__unicode__()
-        namestr = ""
-        if m['fields']['sementor'] != "":
-            selist = m['fields']['sementor'].split(',')
-            for se in selist:
-                member = Member.objects.get(pk = se)
-                namestr = namestr + member.__unicode__() + ","
-        m['fields']['sementorname'] = namestr
-    return mj
-    
 
 def Give_branch(request):
     mydata = request.GET["mydata"]
@@ -52,9 +28,9 @@ def Give_branch(request):
     except Member.DoesNotExist:
         return HttpResponse('')
     s = member.mentee
-    sementorlist = member.sementor.split(',')
-    if (s=='' or s=="0") and (member.sementor == '' or member.sementor=="0"):
+    if s=='' or s=="0":
         return HttpResponse("none")
+
     youngerlist = s.split(',')
     ks = []
     for younger in youngerlist:
@@ -66,19 +42,9 @@ def Give_branch(request):
             continue
         #return HttpResponse(member.younger)
             #raise Http404
-    for se in sementorlist:
-        try:
-            if se != "":
-                member = Member.objects.get(pk=se)
-                ks.append(member)
-        except Member.DoesNotExist:
-            continue
+#    haha = simplejson.dumps()
     haha = serializers.serialize('json',ks)
-    myjson = simplejson.loads(haha)
-    da = myjson[0]['fields']['mentee']
-    setname(myjson)
-    return HttpResponse(json.dumps(myjson))#haha)
-
+    return HttpResponse(haha)
 
 def alldata(request):
     #mimeformat = 'json'
@@ -189,14 +155,14 @@ def getmentor(request):
     return HttpResponse(data)
     
 def normal(request):
-    member = Member.objects.all().order_by('-highest_degree_year')
+    member = Member.objects.all().order_by('-grade')
     grade = []
     count = -1
     num = []
     for m in member:
-        if len(grade)==0 or grade[count]!=m.highest_degree_year:
+        if len(grade)==0 or grade[count]!=m.grade:
             num.append(1)
-            grade.append(m.highest_degree_year)
+            grade.append(m.grade)
             count += 1
         else:
             num[count] += 1
@@ -227,23 +193,23 @@ def search(request):
     return HttpResponse(s)
 
 def new_normal(request):
-    member = Member.objects.all().order_by("highest_degree_year")
+    member = Member.objects.all().order_by("grade")
     grade = []
     count = -1
     for m in member:
-        if count == -1 or grade[count]!=m.highest_degree_year:
-            if m.highest_degree_year == '0':
+        if count == -1 or grade[count]!=m.grade:
+            if m.grade == '0':
                 continue
-            grade.append(m.highest_degree_year)
+            grade.append(m.grade)
             count += 1
     return render_to_response("normal.html",{"grade":grade})
 
 def data_by_grade(request):
     mydata = request.GET["mydata"]
-    member = Member.objects.all()
+    member = Member.objects.all().order_by('-team')
     data = []
     for m in member:
-        if m.highest_degree_year == mydata:
+        if m.grade == mydata:
             data.append(m)
     haha = serializers.serialize('json',data)
     return HttpResponse(haha)
@@ -306,32 +272,7 @@ def update(request):
         member.highest_degree_insti = value[6]
         change = 1
     if member.highest_degree_year != value[7]:
-        if value[7] != "N/A":
-            member.highest_degree_year = value[7]
-            change = 1
-    if member.highest_degree_depart != value[8]:
-        member.highest_degree_depart = value[8]
-        change = 1
-    if member.cur_title != value[9]:
-        member.cur_title = value[9]
-        change = 1
-    if member.keywords != value[10]:
-        member.keywords = value[10]
-        change = 1
-    if member.other_info != value[11]:
-        member.other_info = value[11]
-        change = 1
-    if member.mentor != value[12]:
-        member.mentor = value[12]
-        change = 1
-    if member.mentee != value[13]:
-        member.mentee = value[13]
-        change = 1
-    if member.collaborators != value[14]:
-        member.collaborators = value[14]
-        change = 1
-    if member.organization_info != value[15]:
-        member.organization_info = value[15]
+        member.highest_degree_year = value[7]
         change = 1
     member.save()
     if change == 1:
@@ -344,20 +285,6 @@ def add(request):
     name = request.GET["name"]
     mytype = request.GET["type"]
     name_arr = name.split(",")
-    if mytype == "3" or mytype == 3:
-        m = Member(name_first=name_arr[0],name_middle=name_arr[1],name_last=name_arr[2],is_people=2)
-        m.save()
-        mentor = Member.objects.get(pk=int(f_id))
-        if mentor.sementor=="0" or mentor.sementor=="":
-            mentor.sementor = str(m.pk)
-        else:
-            mentor.sementor += ","+str(m.pk)
-        mentor.save()
-        ks = []
-        ks.append(m)
-        haha = serializers.serialize('json',ks)
-        return HttpResponse(haha)
-        
     m = Member(name_first=name_arr[0],name_middle=name_arr[1],name_last=name_arr[2],is_people=mytype)
     m.save()
     mentor = Member.objects.get(pk=int(f_id))

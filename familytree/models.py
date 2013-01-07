@@ -18,14 +18,10 @@ class Member(models.Model):
     keywords = models.CharField(max_length=15)
     organization_info = models.CharField(max_length=200)
     mentor = models.CharField(max_length=10)
-    sementor = models.CharField(max_length=15)
     mentee = models.CharField(max_length=30)
     collaborators = models.CharField(max_length=30)
     other_info = models.CharField(max_length=50)
     is_people = models.CharField(max_length=1)
     # return a unicode
     def __unicode__(self):
-        if self.name_middle != "":
-            return self.name_first+" "+self.name_middle+" "+self.name_last
-        else:
-            return self.name_first+" "+self.name_last
+        return self.name_first

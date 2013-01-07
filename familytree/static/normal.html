@@ -6,8 +6,7 @@
       <script type="text/javascript" src="/static/normal.js"></script>
     </head>
     <body>
-      <hr />
-      <div id="head" style="display:none">
+      <div id="head">
 	<div id="search_body">
 	  <form method="" id="search_form" action="" onsubmit="return search()">
 	    <input id="search_input" type="" name="" value="" />
@@ -15,7 +14,7 @@
 	  </form>
 	</div>
 	<div id="title">
-	  <img id="title_img" src="/static/element/logo.png" class="" alt="" />
+	  <img id="title_img" src="/static/element/title.png" class="" alt="" />
 	</div>
       </div>
       <div id="time_line">
@@ -28,7 +27,7 @@
 	  <div id="{{ forloop.counter0 }}_grade" class="grade">
 	    <div class="circle_div">
 	      <img id="{{ forloop.counter0 }}_head_img" src="/static/element/simple/circle2.png" class="circle" alt="" />
-	      <p id="year_{{ forloop.counter0 }}">{{ g }}</p>
+	      <p>{{ g }}</p>
 	    </div>
 	  </div>
 	  {% endfor %}
@@ -37,10 +36,10 @@
       </div>
       <div id="show_member">
       </div>
-      <div id="normal_button" class="" style="display:none">
+      <div id="normal_button" class="">
 	<p><b>Normal</b></p>
       </div>
-      <div id="tree_button" class="" style="display:none">
+      <div id="tree_button" class="">
 	<p style="font-size: 18px;">
 	  Tree
 	</p>

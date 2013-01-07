@@ -125,7 +125,6 @@
 	</div>
       </div>
       <img src="/static/element/add/footer.png" />
-      <button id="up">UP</button>
     </div>
     <div id="addchild_div" class="">
       <img src="/static/element/add/add/footer.png" class="" alt="" style="position:relative;left:1px;-moz-transform: rotate(180deg);-webkit-transform: rotate(180deg);"/>
@@ -153,10 +152,9 @@
       Edit
     </div>
     <div id="modify-div" class="">
-      <img src="/static/element/modify/plus.png" class="modify-btn" id="plus-btn" title="Add Mentee" />
-      <img src="/static/element/modify/modify.png" class="modify-btn" id="modify-btn" title="Edit Profile" />
-      <img src="/static/element/modify/link.png" class="modify-btn" id="connect-btn" title="Revise Mentor" />
-      <img src="/static/element/modify/minus.png" class="modify-btn" id="minus-btn" title="Delete" />
+      <img src="/static/element/modify/plus.png" class="modify-btn" id="plus-btn" alt="" />
+      <img src="/static/element/modify/modify.png" class="modify-btn" id="modify-btn" />
+      <img src="/static/element/modify/minus.png" class="modify-btn" id="minus-btn" />
     </div>
     <div id="del_div" class="">
       <img src="/static/element/add/add/footer.png" alt="" style="position:relative;left:1px;-moz-transform: rotate(180deg);-webkit-transform: rotate(180deg);"/>
