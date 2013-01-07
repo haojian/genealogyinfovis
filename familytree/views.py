@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response
 #use to make json
 from django.core import serializers
 from familytree.models import *
-import simplejson,json
+#import simplejson,json
 
 #use local() return all agruments
 def index(request):
