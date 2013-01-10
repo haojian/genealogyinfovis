@@ -13,7 +13,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/Users/haojianjin/Documents/Github/genealogyinfovis/genealogy.sqlite3.db',                      # Or path to database file if using sqlite3.
+        'NAME': '/home/leegend/django/genealogy/genealogy.sqlite3.db',                      # Or path to database file if using sqlite3.
         'USER': 'lq2lq',                      # Not used with sqlite3.
         'PASSWORD': '123',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -62,8 +62,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-#STATIC_ROOT = os.path.join(HERE,'static').replace('\\','/') #'/home/leegend/django/ft/static/'
-STATIC_ROOT = "/var/chroot/home/content/42/9623542/html/genealogy/familytree/static/"
+STATIC_ROOT = os.path.join(HERE,'static').replace('\\','/') #'/home/leegend/django/ft/static/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"

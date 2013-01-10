@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response
 #use to make json
 from django.core import serializers
 from familytree.models import *
-#import simplejson,json
+#import simplejson
 
 #use local() return all agruments
 def index(request):
@@ -15,30 +15,6 @@ def index(request):
 def ft(request):
     #member = Member.objects.get(pk=1)
     return render_to_response('action.html')
-
-def setname(mj):
-    """
-    """
-    for m in mj:
-        namestr = ""
-        if m['fields']['mentee'] != "":
-            youngerlist = m['fields']['mentee'].split(',')
-            for younger in youngerlist:
-                member = Member.objects.get(pk = younger)
-                namestr = namestr + member.__unicode__() + ","
-        m['fields']['menteename'] = namestr
-        if m['fields']['mentor'] != "":
-            member = Member.objects.get(pk = m['fields']['mentor'])
-            m['fields']['mentorname'] = member.__unicode__()
-        namestr = ""
-        if m['fields']['sementor'] != "":
-            selist = m['fields']['sementor'].split(',')
-            for se in selist:
-                member = Member.objects.get(pk = se)
-                namestr = namestr + member.__unicode__() + ","
-        m['fields']['sementorname'] = namestr
-    return mj
-    
 
 def Give_branch(request):
     mydata = request.GET["mydata"]
@@ -52,9 +28,9 @@ def Give_branch(request):
     except Member.DoesNotExist:
         return HttpResponse('')
     s = member.mentee
-    sementorlist = member.sementor.split(',')
-    if (s=='' or s=="0") and (member.sementor == '' or member.sementor=="0"):
+    if s=='' or s=="0":
         return HttpResponse("none")
+
     youngerlist = s.split(',')
     ks = []
     for younger in youngerlist:
@@ -66,19 +42,9 @@ def Give_branch(request):
             continue
         #return HttpResponse(member.younger)
             #raise Http404
-    for se in sementorlist:
-        try:
-            if se != "":
-                member = Member.objects.get(pk=se)
-                ks.append(member)
-        except Member.DoesNotExist:
-            continue
+#    haha = simplejson.dumps()
     haha = serializers.serialize('json',ks)
-    myjson = simplejson.loads(haha)
-    da = myjson[0]['fields']['mentee']
-    setname(myjson)
-    return HttpResponse(json.dumps(myjson))#haha)
-
+    return HttpResponse(haha)
 
 def alldata(request):
     #mimeformat = 'json'
@@ -344,20 +310,6 @@ def add(request):
     name = request.GET["name"]
     mytype = request.GET["type"]
     name_arr = name.split(",")
-    if mytype == "3" or mytype == 3:
-        m = Member(name_first=name_arr[0],name_middle=name_arr[1],name_last=name_arr[2],is_people=2)
-        m.save()
-        mentor = Member.objects.get(pk=int(f_id))
-        if mentor.sementor=="0" or mentor.sementor=="":
-            mentor.sementor = str(m.pk)
-        else:
-            mentor.sementor += ","+str(m.pk)
-        mentor.save()
-        ks = []
-        ks.append(m)
-        haha = serializers.serialize('json',ks)
-        return HttpResponse(haha)
-        
     m = Member(name_first=name_arr[0],name_middle=name_arr[1],name_last=name_arr[2],is_people=mytype)
     m.save()
     mentor = Member.objects.get(pk=int(f_id))

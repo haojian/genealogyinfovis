@@ -364,7 +364,6 @@ $(document).ready(function(){
 	}
 	else{
 	    family.mode = 1;
-	    family.selected_node = 0;
 	    $("#modify_mode").css({"display":"none"});
 	    $("#modify-div").css({"display":"none"});
 	    $("#change_btn").animate({"left":"2px"},"fast");
@@ -683,9 +682,6 @@ function Tree_node_info(data,family){
     this.keyword;
     this.mentor;
     this.mentee;
-    this.mentorname;
-    this.menteename;
-    this.sementorname;
     this.coll;
     
     this.canvas = document.getElementById("node_info");
@@ -708,9 +704,6 @@ function Tree_node_info(data,family){
 	that.homepage = fields.homepage;
 	that.mentor = fields.mentor;
 	that.mentee = fields.mentee;
-	that.mentorname = fields.mentorname;
-	that.menteename = fields.menteename;
-	that.sementorname = fields.sementorname;
 	that.coll = fields.collaborators;
 	that.other_info = fields.other_info;
 	that.title = fields.cur_title;
@@ -761,20 +754,19 @@ function Tree_node_info(data,family){
 	    that.ctx.fillText(that.name,left_fix,write_pos);
 	    write_pos+=write_height;
 	}
-	var info_content = new Array(that.email,that.homepage,that.s_id,that.D_name,that.D_insti,that.D_year,that.D_depart,that.title,that.organization,that.other_info,that.keyword,that.mentorname,that.sementorname,that.menteename,that.coll);
-	var info_name = new Array("Email","Homepage","S_id","PhD","Institution","Year","Subject","Position","Organization","Miscellaneous","Description","Mentor","Secondary mentor","Mentee","Collaborators");
+	var info_content = new Array(that.email,that.homepage,that.s_id,that.D_name,that.D_insti,that.D_year,that.D_depart,that.title,that.organization,that.other_info,that.keyword,that.mentor,that.mentee,that.coll);
+	var info_name = new Array("Email","Homepage","S_id","PhD","Institution","Year","Subject","Position","Organization","Miscellaneous","Description","Mentor","Mentee","Collaborators");
 	var count = 0;
 	var len = info_content.length;
-	var max_len = 25;
 	for(;count<len;count++){
 	    if(test_info(info_content[count])!="N/A"){
 		var str = info_name[count]+": "+test_info(info_content[count]);
-		var str_len = Math.ceil(str.length/max_len);
+		var str_len = Math.ceil(str.length/20);
 		for(var j = 0;j<str_len;j++){
 		    that.ctx.drawImage(info_mid,0,write_pos-12);
 		    that.ctx.drawImage(info_mid,0,write_pos-7);
 		    that.ctx.drawImage(info_mid,0,write_pos-2);
-		    that.ctx.fillText(str.substring(j*max_len,j*max_len+max_len),left_fix,write_pos);
+		    that.ctx.fillText(str.substring(j*20,j*20+20),left_fix,write_pos);
 		    write_pos+=write_height;
 		}
 	    }
@@ -1025,11 +1017,6 @@ function Family(id,left,top){
 		    setTimeout(alert_open,1050,"No mentee yet.");
 		    setTimeout(alert_close,2500);
 		    return 0;
-		}
-		if(that.xmlhttp.responseText==""){
-		    alert_open("No mentee yet");
-		    setTimeout(alert_close,1500);
-		    return;
 		}
 		haha = JSON.parse(that.xmlhttp.responseText);
 		if(haha.length)that.create_node_canvas(haha);
@@ -1360,6 +1347,7 @@ function Family(id,left,top){
 	}
 	var banner = document.getElementById("banner");
 	var fix1=8,fix2=8;
+	var ljt = document.getElementById("ljt");
 	var font_size = 24*fac;
 	//alert(font_size);
 	var font_fix_left = 15*fac;
