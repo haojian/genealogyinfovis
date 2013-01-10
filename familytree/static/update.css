@@ -1,0 +1,222 @@
+.radio {
+    cursor: pointer;
+}
+#modify_mode {
+    bottom: 1px;
+    display: none;
+    font-size: 25px;
+    opacity: 0.5;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+.radio-div {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: left;
+    width: 185px;
+}
+#del_body {
+    background: url("/static/element/add/add/body.png") repeat scroll 0 0 transparent;
+    padding: 20px;
+}
+#addchild_body {
+    background: url("/static/element/add/add/body.png") repeat scroll 0 0 transparent;
+    padding: 20px;
+}
+.add-input {
+    background: url("/static/element/add/add/square.png") repeat scroll 0 0 transparent;
+    border: 0 none;
+    height: 34px;
+    margin: 3px;
+    padding-left: 8px;
+    width: 158px;
+}
+.addchild-btn {
+    background: url("/static/element/add/add/button.png") repeat scroll 0 0 transparent;
+    border: 0 none;
+    cursor: pointer;
+    height: 31px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+    width: 86px;
+}
+.modify-btn {
+    cursor: pointer;
+    margin: -4px;
+}
+#modify-div {
+    display: none;
+    left: 100px;
+    position: absolute;
+    top: 100px;
+}
+.up-input {
+    border: 0 none;
+    color: #636363;
+    height: 38px;
+    margin-bottom: 6px;
+    margin-top: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 190px;
+}
+#up_value {
+    width: 355px;
+}
+#more_btn {
+    background: none repeat scroll 0 0 #E6E6E6;
+    border-radius: 6px 6px 6px 6px;
+    cursor: pointer;
+    height: 40px;
+    margin: 0 auto;
+    text-align: center;
+    width: 319px;
+}
+#up_attr {
+    float: left;
+    position: relative;
+    width: 130px;
+}
+#up_info {
+    height: 406px;
+    overflow-x: hidden;
+    width: 365px;
+}
+.up-info {
+    font-size: 15px;
+    font-weight: bold;
+    height: 40px;
+    left: -5px;
+    padding-top: 10px;
+    position: relative;
+    text-align: right;
+    top: 6px;
+    width: 121px;
+}
+.up_btn {
+    background: url("/static/element/add/add/button.png") repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: #636363;
+    cursor: pointer;
+    font-size: 20px;
+    height: 31px;
+    left: 70px;
+    margin-bottom: 10px;
+    margin-right: 60px;
+    margin-top: 16px;
+    position: relative;
+    width: 86px;
+}
+#up_body {
+    background: url("/static/element/add/body.png") repeat scroll 0 0 transparent;
+    color: #636363;
+    width: 380px;
+}
+#update_exit img {
+    cursor: pointer;
+}
+#update_exit {
+    height: 20px;
+    left: 355px;
+    position: relative;
+    top: -24px;
+    width: 50px;
+}
+.update-div input {
+    width: 85px;
+}
+#update_info_div {
+    left: 10px;
+    margin: 0 auto;
+    position: relative;
+    top: -20px;
+    width: 332px;
+    z-index: 100;
+}
+.itemName {
+    float: left;
+    width: 103px;
+}
+.info {
+    height: 29px;
+    margin-bottom: 7px;
+    margin-top: 7px;
+}
+.update-div {
+    display: none;
+}
+.cancel {
+    cursor: pointer;
+}
+.update-btn {
+    cursor: pointer;
+}
+#addchild_div {
+    display: none;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+    top: 90px;
+    width: 260px;
+    z-index: 100;
+}
+.check {
+    margin-left: 10px;
+    position: relative;
+    top: 4px;
+}
+#more_btn p {
+    color: #636363;
+    position: relative;
+    top: 11px;
+}
+.up_list2 {
+    display: none;
+}
+#mode_div {
+    color: #636363;
+    font-weight: bold;
+    left: 10px;
+    position: absolute;
+    top: 2px;
+}
+#change_mode {
+    cursor: pointer;
+    position: relative;
+    top: 8px;
+}
+#change_btn {
+    left: 2px;
+    position: absolute;
+    top: -15px;
+}
+#del_div {
+    border-radius: 5px 5px 5px 5px;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+    top: 100px;
+    width: 256px;
+    display: none;
+    z-index:999;
+}
+.del-btn {
+    background: url("/static/element/add/add/button.png") repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: #636363;
+    cursor: pointer;
+    height: 31px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+    width: 86px;
+}
+#up {
+    font-size: 10px;
+    left: 11px;
+    position: absolute;
+    text-align: center;
+    top: 14px;
+}

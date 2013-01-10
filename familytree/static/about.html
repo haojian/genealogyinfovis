@@ -1,0 +1,181 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <script type="text/javascript" src="/static/jquery.js"></script>
+    <style type="text/css" media="screen">
+#logo {
+    margin-top: 18px;
+}
+.contact {
+    line-height: 200%;
+}
+a:visited {
+}
+#page_body_about {
+    line-height: 200%;
+    text-align: left;
+}
+#sns_link img {
+    width: 45px;
+}
+#sns_link span {
+    margin: 8px;
+}
+#head {
+    margin: 0 auto 50px;
+    width: 800px;
+}
+body {
+    background-image: url("/static/element/bg.png");
+    height: 100%;
+    width: 100%;
+}
+#page_foot {
+    bottom: 0;
+    opacity: 0.5;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+#page_body {
+    margin: 0 auto;
+    text-align: center;
+    width: 650px;
+}
+* {
+    font-family: AxureHandwritingRegular;
+    margin: 0;
+}
+@font-face {
+    font-family: "AxureHandwritingRegular";
+    font-style: normal;
+    font-weight: normal;
+    src: url("/static/font/axurehandwriting-webfont.eot?#iefix") format("embedded-opentype"), url("/static/font/axurehandwriting-webfont.woff") format("woff"), url("/static/font/axurehandwriting-webfont.ttf") format("truetype"), url("/static/font/axurehandwriting-webfont.svg#AxureHandwritingRegular") format("svg");
+}
+#normal_button {
+    background-image: url("/static/element/TREE.png");
+    bottom: 30px;
+    cursor: pointer;
+    height: 91px;
+    position: absolute;
+    right: 115px;
+    width: 91px;
+}
+#tree_button {
+    background-image: url("/static/element/TREE.png");
+    bottom: 30px;
+    cursor: pointer;
+    height: 91px;
+    position: absolute;
+    right: 220px;
+    width: 91px;
+}
+#about_button {
+    background-image: url("/static/element/TREE.png");
+    bottom: 30px;
+    cursor: pointer;
+    height: 91px;
+    position: absolute;
+    right: 10px;
+    width: 91px;
+}
+#about_button p {
+    font-size: 18px;
+    position: relative;
+    text-align: center;
+    top: 32px;
+}
+.text_link {
+    position: relative;
+    top: -16px;
+}
+#normal_button p {
+    font-size: 18px;
+    position: relative;
+    text-align: center;
+    top: 32px;
+}
+#tree_button p {
+    font-size: 18px;
+    position: relative;
+    text-align: center;
+    top: 32px;
+}
+
+
+
+    </style>
+  </head>
+  <body>
+    <div id="head" class="">
+      <div id="logo" class="">
+	<img src="/static/element/about.png" class="" alt="" />
+      </div>
+    </div>
+    <div id="page_body" class="">
+      <div id="page_body_about">
+	<p>
+	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unique Studio是一个学生IT团队，至今已成立了12年之久。这些年团队做了很多比赛，外包，最近这两年还做了一些产品。更重要的是培养了一批批优秀的uniquer们，这些才是unique studio最宝贵的财富。由此有了这个family tree。
+	  <br/>
+	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在family tree信息还不够全，希望看到的uniquers能联系我们。
+	  <br/>
+	  wcai@hustunique.com &nbsp;&nbsp;quli@hustunique.com &nbsp;&nbsp;qq:463376976
+	  <br/>
+	  coding by <a href="http://weibo.com/2099451730/profile?leftnav=1&wvr=3.6&mod=personinfo">我是LeeGenD</a> &nbsp;&nbsp;design+PM <a href="http://weibo.com/u/1650731284?topnav=1&wvr=3.6&topsug=1">蔚蓝永恒0512</a>
+	</p>
+      </div>
+      <div id="sns_link" class="">
+	
+	<span>
+	  <a href="http://www.hustunique.com"> 
+	    <img src="/static/element/about_us.png" class="" alt="" /><span class="text_link">团队主页</span></a>
+	</span>
+	<span>
+	  <a href="http://page.renren.com/601317380?id=601317380&ref=opensearch_normal">
+	    <img src="/static/element/renren.png" class="" alt="" /><span class="text_link">人人主页</span></a>
+	</span>
+	<span>
+	  <a href="http://weibo.com/uniquestudio?topnav=1&wvr=3.6&topsug=1">
+	    <img src="/static/element/LOGO_64x64.png" class="" alt="" /><span class="text_link">微博主页</span>
+	  </a>
+	</span>
+      </div>
+    </div>
+    <div id="normal_button" class="">
+      <p>Normal</p>
+    </div>
+    <div id="tree_button" class="">
+      <p>Tree</p>
+    </div>
+    <div id="about_button" class="">
+      <p><b>关于</b></p>
+    </div>
+    <div id="page_foot" class="">
+      <p>Copy right © Unique Studio All Rights Reserved</p>
+    </div>
+    <script>
+      $("#normal_button").mouseenter(function(){
+      $("#normal_button p").css("font-size","22px");
+      });
+      $("#normal_button").mouseleave(function(){
+      $("#normal_button p").css("font-size","18px");
+      });
+      $("#tree_button").mouseenter(function(){
+      $("#tree_button p").css("font-size","22px");
+      });
+      $("#tree_button").mouseleave(function(){
+      $("#tree_button p").css("font-size","18px");
+      });
+      $("#normal_button").click(function(){
+      window.location.href="/normal/";
+      });
+      $("#about_button").click(function(){
+      alert_open("您已在 About 页面");
+      setTimeout(alert_close,2000);
+      });
+      $("#tree_button").click(function(){
+      alert_open("您已在 About 页面");
+      setTimeout(alert_close,2000);
+      });
+    </script>
+  </body>
+</html>

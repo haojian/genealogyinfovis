@@ -1,0 +1,63 @@
+body {
+    background-image: url("/static/element/bg.png");
+    overflow-x: hidden;
+}
+div {
+    border: 1px solid;
+}
+#title {
+  
+    height: 100px;
+    margin: 0 auto 40px;
+    width: 237px;
+}
+#time_line {
+  
+    height: 100px;
+    position: relative;
+    width: 3000px;
+}
+#show_member {
+    height: 300px;
+    border: 0px;
+}
+.member {
+    float: left;
+    height: 100px;
+    width: 100px;
+}
+.grade {
+  
+    float: left;
+    height: 50px;
+    width: 200px;
+}
+#time_line_bg{
+
+    background-color:#000000;
+    height:10px;
+    margin:0;
+    padding:0;
+    width:auto;
+}
+#time_line_body {
+  
+    position:relative;
+    top: -25px;
+}
+.circle {
+    position: relative;
+    top: -35px;
+    width:75px;
+    height:75px;
+}
+*{
+    margin:0px;
+}
+#info{
+    position:absolute;
+    display:none;
+    width:100px;
+    height:100px;
+    border:1px solid;
+}
